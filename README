@@ -1,4 +1,4 @@
-pf.js is a simple library that attempts to implement partial functions in a format akin to those found in Scala. Specifically this means that each partial function is a function that only returns something for a discrete set of values.
+pf.js is a simple Javascript library that attempts to implement partial functions in a format akin to those found in Scala. Specifically this means that each partial function is a function that only returns something for a discrete set of values.
 
 Further reading:
 http://www.scala-lang.org/node/134
@@ -14,8 +14,9 @@ myPF(1) // -> "one"
 myPF("dog") // -> error thrown
 
 var anotherCondition = Condition("dog", function() { return "man's  best friend" });
-var anotherPF = myPF.orElse(anotherCondition)
-anotherPF.isDefinedAt(1) // -> true
-anotherPF.isDefinedAt("dog") // -> true
-myPF(1) // -> "one"
-myPF("dog") // -> "man's best friend"
+var anotherPF = PF(anotherCondition)
+var thirdPF = myPF.orElse(anotherPF)
+thirdPF.isDefinedAt(1) // -> true
+thirdPF.isDefinedAt("dog") // -> true
+thirdPF(1) // -> "one"
+thirdPF("dog") // -> "man's best friend"
