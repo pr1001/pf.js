@@ -1,0 +1,21 @@
+pf.js is a simple library that attempts to implement partial functions in a format akin to those found in Scala. Specifically this means that each partial function is a function that only returns something for a discrete set of values.
+
+Further reading:
+http://www.scala-lang.org/node/134
+http://suereth.blogspot.com/2008/11/using-partial-functions-and-pattern.html
+http://en.wikipedia.org/wiki/Partial_function
+
+An example:
+var myCondition = Condition(1, function() { return "one" });
+var myPF = PF(myCondition)
+myPF.isDefinedAt(1) // -> true
+myPF.isDefinedAt("dog") // -> false
+myPF(1) // -> "one"
+myPF("dog") // -> error thrown
+
+var anotherCondition = Condition("dog", function() { return "man's  best friend" });
+var anotherPF = myPF.orElse(anotherCondition)
+anotherPF.isDefinedAt(1) // -> true
+anotherPF.isDefinedAt("dog") // -> true
+myPF(1) // -> "one"
+myPF("dog") // -> "man's best friend"
